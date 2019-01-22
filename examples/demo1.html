@@ -1,9 +1,14 @@
-<div id="div1" class="hello">HELLO WORLD DIV1</div>
-<div id="div2" class="hello">HELLO WORLD DIV2</div>
+<div id="div1" class="hello" style="font-size:18px;">HELLO WORLD DIV1</div>
+<div id="div2" class="hello test">HELLO WORLD DIV2</div>
 
 <script src="../src/zepto.js"></script>
 
 <script>
-  $('#div1').css('color','red')
-  $('.hello').css('color','blue')
+  // var a =$('#div1').css('color','blue');
+  
+  //  $('.hello').each(function(item){
+  //   console.log(item);
+  //  }) 
+
+   $('.hello').filter('.test').css('color','#0FF');
 </script>

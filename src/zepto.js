@@ -9,13 +9,11 @@ var Zepto = (function () {
     },
     e, k, css;
 
-
   // fix for iOS 3.2 修复iOS 3.2的trim方法
   if (String.prototype.trim === void 0)
     String.prototype.trim = function () {
       //把前后空格，替换掉 
       return this.replace(/^\s+/, '').replace(/\s+$/, '')
-
     };
 
 
@@ -45,8 +43,12 @@ var Zepto = (function () {
     if (context !== void 0) return $(context).find(_);
 
     function fn(_) {
-      return fn.dom.forEach(_), fn
+      //选择元素后操作会用到该方法     
+      fn.dom.forEach(_);
+      return fn
     }
+
+
     fn.dom = compact(
       (typeof _ == 'function' && 'dom' in _)
         ? _.dom
@@ -58,6 +60,7 @@ var Zepto = (function () {
           )
         )
     );
+
     $.extend(fn, $.fn);
     return fn;
   }
@@ -76,16 +79,32 @@ var Zepto = (function () {
   }
 
   $.fn = {
-    compact: function () { this.dom = compact(this.dom); return this },
-    get: function (idx) { return idx === void 0 ? this.dom : this.dom[idx] },
+    compact: function () {
+      this.dom = compact(this.dom); return this
+    },
+    get: function (idx) {
+      return idx === void 0 ? this.dom : this.dom[idx]
+    },
     remove: function () {
-      return this(function (el) { el.parentNode.removeChild(el) });
+      return this(function (el) {
+        el.parentNode.removeChild(el)
+      });
     },
-    each: function (callback) { return this(callback) },
+    each: function (callback) {
+      return this(callback)
+    },
     filter: function (selector) {
-      return $(this.dom.filter(function (el) { return $$(el.parentNode, selector).indexOf(el) >= 0; }));
+      return $(this.dom.filter(
+        function (el) {
+          //父级再查找一次过滤选择器，返回查找到的
+          return $$(el.parentNode, selector).indexOf(el) >= 0;
+        })
+      );
     },
-    first: function (callback) { this.dom = compact([this.dom[0]]); return this },
+    first: function (callback) {
+      this.dom = compact([this.dom[0]]);
+      return this
+    },
     find: function (selector) {
       return $(this.dom.map(function (el) {
         return $$(el, selector)
@@ -105,33 +124,52 @@ var Zepto = (function () {
     prev: function () { return $(this.pluck('previousElementSibling')) },
     next: function () { return $(this.pluck('nextElementSibling')) },
     html: function (html) {
-      return html === void 0 ? (this.dom.length > 0 ? this.dom[0].innerHTML : null) : this(function (el) { el.innerHTML = html });
+      return html === void 0
+        ? (this.dom.length > 0 ? this.dom[0].innerHTML : null)
+        : this(function (el) {
+          el.innerHTML = html
+        });
     },
     attr: function (name, value) {
-      return (typeof name == 'string' && value === void 0) ? (this.dom.length > 0 ? this.dom[0].getAttribute(name) || undefined : null) :
-        this(function (el) {
-          if (typeof name == 'object')
+      return (typeof name == 'string' && value === void 0)
+        ? (this.dom.length > 0 ? this.dom[0].getAttribute(name) || undefined : null)
+        : this(function (el) {
+          if (typeof name == 'object') {
             for (k in name) el.setAttribute(k, name[k])
-          else el.setAttribute(name, value);
+          }
+          else {
+            el.setAttribute(name, value);
+          }
         });
     },
     offset: function () {
       var obj = this.dom[0].getBoundingClientRect();
-      return { left: obj.left + d.body.scrollLeft, top: obj.top + d.body.scrollTop, width: obj.width, height: obj.height };
+      return {
+        left: obj.left + d.body.scrollLeft,
+        top: obj.top + d.body.scrollTop,
+        width: obj.width,
+        height: obj.height
+      };
     },
     css: function (prop, value) {
-      if (value === void 0 && typeof prop == 'string') return this.dom[0].style[camelize(prop)];
+      if (value === void 0 && typeof prop == 'string') {
+        return this.dom[0].style[camelize(prop)];
+      }
       css = "";
       for (k in prop) css += k + ':' + prop[k] + ';';
       if (typeof prop == 'string') css = prop + ":" + value;
-      return this(function (el) { el.style.cssText += ';' + css });
+      return this(function (el) {
+        el.style.cssText += ';' + css
+      });
     },
     index: function (el) {
       return this.dom.indexOf($(el).get(0));
     },
     bind: function (event, callback) {
       return this(function (el) {
-        event.split(/\s/).forEach(function (event) { el.addEventListener(event, callback, false); });
+        event.split(/\s/).forEach(function (event) {
+          el.addEventListener(event, callback, false);
+        });
       });
     },
     delegate: function (selector, event, callback) {
@@ -152,7 +190,9 @@ var Zepto = (function () {
       return classRE(name).test(this.dom[0].className);
     },
     addClass: function (name) {
-      return this(function (el) { !$(el).hasClass(name) && (el.className += (el.className ? ' ' : '') + name) });
+      return this(function (el) {
+        !$(el).hasClass(name) && (el.className += (el.className ? ' ' : '') + name)
+      });
     },
     removeClass: function (name) {
       return this(function (el) { el.className = el.className.replace(classRE(name), ' ').trim() });
