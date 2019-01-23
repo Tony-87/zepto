@@ -45,7 +45,7 @@ var Zepto = (function () {
     function fn(_) {
       //选择元素后操作会用到该方法     
       fn.dom.forEach(_);
-      return fn
+      return fn;//返回自身，方便后面链式调用
     }
 
 

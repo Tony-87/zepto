@@ -8,7 +8,8 @@
     }
     return this.css({
       '-webkit-transition': 'all ' + (dur || 0.5) + 's ' + (ease || ''),
-      '-webkit-transform': transforms.join(' '), opacity: opacity
+      '-webkit-transform': transforms.join(' '),
+      opacity: opacity
     });
   }
 })(Zepto);

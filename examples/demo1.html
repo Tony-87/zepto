@@ -1,14 +1,49 @@
-<div id="div1" class="hello" style="font-size:18px;">HELLO WORLD DIV1</div>
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="div1" class="hello" style="font-size:18px;">HELLO WORLD DIV1</div>
 <div id="div2" class="hello test">HELLO WORLD DIV2</div>
+<img id="img1" src="../img/ship.jpg" alt="">
+<img id="img2" src="../img/ship.jpg" alt="">
 
 <script src="../src/zepto.js"></script>
+<!-- <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script> -->
+<script src="../src/assets.js"></script>
 
 <script>
-  // var a =$('#div1').css('color','blue');
+  //  var a =$('#div1').css('color','blue');
   
+  $("#div1").before('<a>before</a>');
+  $("#div1").prepend('<a>prepend</a>');
+  $("#div1").after('<a>after</a>');
+  $("#div1").append('<a>append</a>');
+
+  $("#div1").before($("#div2").get(0));
+  $("#div1").prepend($("#div2").get(0));
+  $("#div1").after($("#div2").get(0));
+  $("#div1").append($("#div2").get(0));
   //  $('.hello').each(function(item){
   //   console.log(item);
   //  }) 
 
    $('.hello').filter('.test').css('color','#0FF');
+
+   function abc() {
+     var a = abc;
+     return abc;
+   }
+   abc();
 </script>
+</body>
+</html>
+
+
+
+
+
