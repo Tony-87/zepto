@@ -11,7 +11,7 @@
         var handler = {ev: ev, el: el, fn: fn, i: handlers.length};
         handlers.push(handler);
         el.addEventListener(ev, fn, false);
-      });
+      });  
     },
     remove: function(el, events, fn){
       (events||'').split(/\s/).forEach(function(ev){

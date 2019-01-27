@@ -209,7 +209,11 @@ var Zepto = (function () {
     }
   };
 
-  ['width', 'height'].forEach(function (m) { $.fn[m] = function () { return this.offset()[m] } });
+  ['width', 'height'].forEach(function (m) { 
+    $.fn[m] = function () { 
+      return this.offset()[m] 
+    } 
+  });
 
   for (k in ADJ_OPS)
     $.fn[k] = (function (op) {
